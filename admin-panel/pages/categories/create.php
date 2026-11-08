@@ -18,37 +18,51 @@ if (isset($_POST['addCategory'])) {
     }
 }
 ?>
-<div class="container-fluid">
-    <div class="row">
-        <!-- Sidebar Section -->
+
+<div class="admin-dashboard">
+    <div class="admin-dashboard-layout">
         <?php
             include "../../include/layout/sidbar.php";
 ?>
-        <!-- Main Section -->
-        <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
-            <div
-                class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-                <h1 class="fs-3 fw-bold">ایجاد دسته بندی</h1>
+
+        <main class="admin-dashboard-main">
+            <div class="admin-page-header">
+                <div>
+                    <span class="admin-page-eyebrow">مدیریت محتوا</span>
+                    <h1 class="admin-page-title">ایجاد دسته‌بندی</h1>
+                    <p class="admin-page-description">
+                        یک دسته‌بندی جدید برای سازمان‌دهی مطالب وبلاگ ایجاد کنید.
+                    </p>
+                </div>
             </div>
 
-            <!-- Posts -->
-            <div class="mt-4">
-                <form method="post" class="row g-4">
-                    <div class="col-12 col-sm-6 col-md-4">
-                        <label class="form-label">عنوان دسته بندی</label>
-                        <input type="text" name="title" class="form-control" />
-                        <div class=" form-text text-danger">
-                            <?= $invalidInputTitle ?>
+            <section class="admin-dashboard-section">
+                <div class="admin-section-header">
+                    <div>
+                        <span class="admin-section-eyebrow">دسته‌بندی‌ها</span>
+                        <h2 class="admin-section-title">اطلاعات دسته‌بندی</h2>
+                    </div>
+                    <span class="admin-section-icon">▤</span>
+                </div>
+
+                <div class="admin-form-card">
+                    <form method="post" class="admin-form">
+                        <div class="admin-form-group">
+                            <label class="admin-form-label">عنوان دسته‌بندی</label>
+                            <input type="text" name="title" class="admin-form-control" />
+                            <div class="admin-form-error">
+                                <?= $invalidInputTitle ?>
+                            </div>
                         </div>
-                    </div>
 
-                    <div class="col-12">
-                        <button type="submit" name="addCategory" class="btn btn-dark">
-                            ایجاد
-                        </button>
-                    </div>
-                </form>
-            </div>
+                        <div class="admin-form-actions">
+                            <button type="submit" name="addCategory" class="admin-primary-btn">
+                                ایجاد دسته‌بندی
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </section>
         </main>
     </div>
 </div>

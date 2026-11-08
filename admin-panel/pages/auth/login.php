@@ -1,3 +1,4 @@
+
 <?php
 
 session_start();
@@ -32,10 +33,7 @@ if (isset($_POST['login'])) {
     }
 }
 
-
-
 ?>
-
 
 <!DOCTYPE html>
 <html dir="rtl" lang="fa">
@@ -48,7 +46,7 @@ if (isset($_POST['login'])) {
     <!-- <link
             href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css"
             rel="stylesheet"
-            integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9"
+            integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC+5VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9"
             crossorigin="anonymous"
         /> -->
     <link href="../../assets/css/bootstrap.min.css" rel="stylesheet" />
@@ -56,35 +54,65 @@ if (isset($_POST['login'])) {
     <link rel="stylesheet" href="../../assets/css/style.css" />
 </head>
 
-<body class="auth">
-    <main class="form-signin w-100 m-auto">
-        <form method="post">
-            <div class="fs-2 fw-bold text-center mb-4">webprog.io</div>
+<body class="auth admin-body">
+    <main class="admin-auth-wrapper">
+        <div class="admin-auth-card">
+            <div class="admin-auth-brand">
+                <div class="admin-auth-brand-icon">W</div>
+                <div class="admin-auth-brand-name">webprog.io</div>
+                <span class="admin-auth-eyebrow">پنل مدیریت وبلاگ</span>
+            </div>
+
+            <div class="admin-auth-heading">
+                <h1 class="admin-auth-title">خوش آمدید</h1>
+                <p class="admin-auth-description">
+                    برای ورود به حساب کاربری خود اطلاعات زیر را وارد کنید.
+                </p>
+            </div>
+
             <?php if(isset($_GET['err_msg'])):  ?>
-            <div class="alert alert-sm alert-danger">
+            <div class="admin-auth-error">
                 <?= $_GET['err_msg'] ?>
             </div>
             <?php endif ?>
-            <div class="mb-3">
-                <label class="form-label">ایمیل</label>
-                <input type="email" name="email" class="form-control" />
-                <div class="form-text text-danger">
-                    <?= $invalidInputEmail ?>
-                </div>
-            </div>
 
-            <div class="mb-3">
-                <label class="form-label">رمز عبور</label>
-                <input type="password" name="password" class="form-control" />
-                <div class="form-text text-danger">
-                    <?= $invalidInputPassword ?>
+            <form method="post" class="admin-auth-form">
+                <div class="admin-form-group">
+                    <label class="admin-form-label">ایمیل</label>
+                    <input
+                        type="email"
+                        name="email"
+                        class="admin-form-control"
+                        placeholder="ایمیل خود را وارد کنید"
+                    />
+                    <div class="admin-form-error">
+                        <?= $invalidInputEmail ?>
+                    </div>
                 </div>
 
+                <div class="admin-form-group">
+                    <label class="admin-form-label">رمز عبور</label>
+                    <input
+                        type="password"
+                        name="password"
+                        class="admin-form-control"
+                        placeholder="رمز عبور خود را وارد کنید"
+                    />
+                    <div class="admin-form-error">
+                        <?= $invalidInputPassword ?>
+                    </div>
+                </div>
+
+                <button name="login" class="admin-auth-submit" type="submit">
+                    ورود به پنل مدیریت
+                </button>
+            </form>
+
+            <div class="admin-auth-footer">
+                <span>webprog.io</span>
+                <span>مدیریت محتوای وبلاگ</span>
             </div>
-            <button name="login" class="w-100 btn btn-dark mt-4" type="submit">
-                ورود
-            </button>
-        </form>
+        </div>
     </main>
 
     <!-- <script

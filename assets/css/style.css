@@ -1,71 +1,542 @@
+/* =========================================================
+   WEBPROG.IO — Modern Dark / Violet Theme
+   File: assets/css/style.css
+   Compatible with the current Bootstrap 5 markup.
+   ========================================================= */
+
 @font-face {
     font-family: "Vazir";
     src: url("../fonts/Vazir.eot");
-    /* IE9 Compat Modes */
     src: url("../fonts/Vazir.eot?#iefix") format("embedded-opentype"),
-        url("../fonts/Vazir.woff2") format("woff2"),
-        url("../fonts/Vazir.woff") format("woff"),
-        url("../fonts/Vazir.ttf") format("truetype");
-    /* Safari, Android, iOS */
+         url("../fonts/Vazir.woff2") format("woff2"),
+         url("../fonts/Vazir.woff") format("woff"),
+         url("../fonts/Vazir.ttf") format("truetype");
+    font-display: swap;
 }
 
-body {
-    background-image: linear-gradient(180deg, #e9ecef, #fff 100px, #fff);
-    background-repeat: no-repeat;
-    font-family: "Vazir", sans-serif;
+:root {
+    color-scheme: dark;
+    --wp-bg: #10111a;
+    --wp-bg-soft: #151725;
+    --wp-panel: #1a1d2b;
+    --wp-panel-hover: #202438;
+    --wp-border: rgba(255, 255, 255, .09);
+    --wp-text: #f1efff;
+    --wp-muted: #a6a8bc;
+    --wp-violet: #8b7cff;
+    --wp-violet-light: #b4aaff;
+    --wp-violet-dark: #6c5ce7;
+    --wp-danger: #ff8798;
+    --wp-radius: 18px;
+    --wp-shadow: 0 16px 42px rgba(0, 0, 0, .22);
 }
 
-.container {
-    max-width: 1200px;
+* { box-sizing: border-box; }
+
+html {
+    min-height: 100%;
+    scroll-behavior: smooth;
 }
 
-.text-justify {
-  text-align: justify;
+body.blog-body {
+    min-height: 100vh;
+    margin: 0;
+    background:
+        radial-gradient(ellipse at 90% 0%, rgba(139, 124, 255, .13), transparent 32%),
+        radial-gradient(ellipse at 5% 45%, rgba(108, 92, 231, .07), transparent 30%),
+        var(--wp-bg) !important;
+    color: var(--wp-text) !important;
+    font-family: "Vazir", Tahoma, sans-serif !important;
+    line-height: 1.9;
 }
 
-.overlay:after {
-    content: "";
-    display: block;
+.blog-body > .container {
+    width: min(100% - 32px, 1280px);
+    max-width: 1280px;
+    padding-top: 28px !important;
+    padding-bottom: 36px !important;
+}
+
+.blog-body a {
+    color: var(--wp-violet-light);
+    transition: color .2s ease, background-color .2s ease, transform .2s ease;
+}
+
+.blog-body a:hover { color: #d0caff; }
+
+.blog-body .text-secondary,
+.blog-body .text-muted { color: var(--wp-muted) !important; }
+
+.blog-body .text-body,
+.blog-body .link-body-emphasis { color: var(--wp-text) !important; }
+
+.blog-body .border-top,
+.blog-body .border-bottom { border-color: var(--wp-border) !important; }
+
+.blog-body .text-justify { text-align: justify; }
+
+/* Header and navigation */
+.site-header {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 18px 24px;
+    padding: 18px 24px !important;
+    margin: 0 0 30px !important;
+    background: rgba(26, 29, 43, .92);
+    border: 1px solid var(--wp-border) !important;
+    border-radius: 20px;
+    box-shadow: var(--wp-shadow);
+    backdrop-filter: blur(16px);
+}
+
+.site-brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 11px;
+}
+/* ===== اصلاح هدر وبلاگ بر اساس ساختار واقعی header.php ===== */
+
+body.blog-body .site-header {
+    display: grid !important;
+    grid-template-columns: minmax(0, 1fr) minmax(260px, 420px) minmax(0, 1fr) !important;
+    grid-template-areas: "brand search categories";
+    align-items: center;
+    gap: 20px;
+    direction: rtl;
+    padding: 22px !important;
+    background: linear-gradient(135deg, #202338, #171a2b) !important;
+    border: 1px solid rgba(169,154,255,.18) !important;
+    border-radius: 18px;
+    box-shadow: 0 12px 35px rgba(0,0,0,.25);
+}
+
+body.blog-body .site-brand-wrap {
+    grid-area: brand;
+    justify-self: start;
+}
+
+body.blog-body .site-brand,
+body.blog-body .site-brand:visited,
+body.blog-body .site-brand:hover {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    color: #fff !important;
+    text-decoration: none !important;
+}
+
+body.blog-body .brand-title {
+    color: #fff !important;
+    font-size: 20px;
+}
+
+body.blog-body .brand-subtitle {
+    color: #aeb3ca !important;
+}
+
+body.blog-body .site-header-search {
+    grid-area: search;
+    justify-self: center;
+    width: 100%;
+    max-width: 420px;
+    margin: 0 !important;
+}
+
+body.blog-body .search-input-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+body.blog-body .search-icon {
     position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    background: black;
-    opacity: 0.4;
-    z-index: 1;
-}
-
-.carousel-caption {
+    right: 14px;
     z-index: 2;
+    color: #a99aff;
 }
 
-.input-group
-    > :not(:first-child):not(.dropdown-menu):not(.valid-tooltip):not(
-        .valid-feedback
-    ):not(.invalid-tooltip):not(.invalid-feedback) {
-    border-top-right-radius: 0;
-    border-bottom-right-radius: 0;
-    border-top-left-radius: 0.375rem;
-    border-bottom-left-radius: 0.375rem;
+body.blog-body .site-header-search .form-control {
+    min-width: 0;
+    padding-right: 42px;
+    color: #fff !important;
+    background: #111321 !important;
+    border: 1px solid rgba(169,154,255,.25) !important;
+    border-radius: 10px !important;
 }
 
-.input-group:not(.has-validation)
-    > :not(:last-child):not(.dropdown-toggle):not(.dropdown-menu):not(
-        .form-floating
-    ) {
-    border-top-left-radius: 0;
-    border-bottom-left-radius: 0;
-    border-top-right-radius: 0.375rem;
-    border-bottom-right-radius: 0.375rem;
+body.blog-body .btn-search {
+    color: #fff !important;
+    background: linear-gradient(135deg,#927cff,#6c5ce7) !important;
+    border: none !important;
+    border-radius: 10px !important;
 }
 
-.fs-7 {
-    font-size: 0.95rem;
+body.blog-body .site-nav {
+    grid-area: categories;
+    justify-self: end;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 5px;
 }
 
-@media screen and (min-width: 800px) {
-    .carousel-height {
-        height: 450px;
+body.blog-body .site-nav .site-nav-link,
+body.blog-body .site-nav .site-nav-link:visited {
+    padding: 8px 10px !important;
+    color: #c9c5df !important;
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    border-radius: 9px;
+    text-decoration: none !important;
+    white-space: nowrap;
+}
+
+body.blog-body .site-nav .site-nav-link:hover,
+body.blog-body .site-nav .site-nav-link.active {
+    color: #fff !important;
+    background: rgba(139,124,255,.16) !important;
+    text-decoration: none !important;
+}
+
+/* ===== کارت‌های مطالب ===== */
+
+body.blog-body .card {
+    color: #f1efff !important;
+    background: linear-gradient(145deg,#202338,#191c2c) !important;
+    border: 1px solid rgba(169,154,255,.15) !important;
+    border-radius: 17px !important;
+    box-shadow: 0 12px 30px rgba(0,0,0,.22) !important;
+}
+
+body.blog-body .card-body {
+    color: #e9e7f5 !important;
+}
+
+body.blog-body .card-title,
+body.blog-body .card-title a {
+    color: #f5f2ff !important;
+    text-decoration: none !important;
+}
+
+body.blog-body .card-text {
+    color: #c0c2d2 !important;
+}
+
+body.blog-body .card a:not(.btn) {
+    color: #b9aaff !important;
+    text-decoration: none !important;
+}
+
+/* ===== سایدبار و دسته‌بندی‌ها ===== */
+
+body.blog-body .blog-sidebar .card {
+    background: linear-gradient(145deg,#202338,#191c2c) !important;
+}
+
+body.blog-body .blog-sidebar .card-header {
+    color: #f2efff !important;
+    background: rgba(139,124,255,.15) !important;
+    border-bottom: 1px solid rgba(169,154,255,.15) !important;
+    
+}
+
+body.blog-body .blog-sidebar .list-group-item {
+    color: #d8d5e8 !important;
+    background: transparent !important;
+    border-color: rgba(255,255,255,.08) !important;
+    
+}
+
+body.blog-body .blog-sidebar .list-group-item a {
+    color: #c9c4e3 !important;
+    text-decoration: none !important;
+}
+
+body.blog-body .blog-sidebar .list-group-item a:hover {
+    color: #fff !important;
+    
+}
+
+/* ===== واکنش‌گرایی ===== */
+
+@media (max-width: 991px) {
+    body.blog-body .site-header {
+        grid-template-columns: 1fr 1fr !important;
+        grid-template-areas:
+            "brand categories"
+            "search search";
     }
+
+    body.blog-body .site-header-search {
+        max-width: 550px;
+    }
+}
+
+@media (max-width: 767px) {
+    body.blog-body .site-header {
+        grid-template-columns: 1fr !important;
+        grid-template-areas:
+            "brand"
+            "search"
+            "categories";
+        gap: 14px;
+    }
+
+    body.blog-body .site-brand-wrap,
+    body.blog-body .site-header-search,
+    body.blog-body .site-nav {
+        width: 100%;
+        justify-self: stretch;
+    }
+
+    body.blog-body .site-brand-wrap {
+        text-align: center;
+    }
+
+    body.blog-body .site-brand {
+        justify-content: center;
+    }
+
+    body.blog-body .site-nav {
+        justify-content: center;
+    }
+}
+/* =========================================================
+   RESPONSIVE LAYOUT FIX
+   جلوگیری از اسکرول افقی و تنظیم فاصله‌های استاندارد
+   ========================================================= */
+
+/* جلوگیری از بیرون‌زدگی کل صفحه */
+html,
+body.blog-body {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: clip;
+}
+
+/* فاصله استاندارد از کناره‌های صفحه */
+body.blog-body > .container {
+    width: 100%;
+    max-width: 1320px;
+    padding-right: 24px !important;
+    padding-left: 24px !important;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+/* تمام ستون‌ها اجازه بزرگ‌شدن خارج از محدوده را نداشته باشند */
+body.blog-body .row {
+    min-width: 0;
+    margin-right: 0;
+    margin-left: 0;
+}
+
+body.blog-body [class*="col-"] {
+    min-width: 0;
+}
+
+/* تصاویر و محتوای رسانه‌ای */
+body.blog-body img,
+body.blog-body video,
+body.blog-body iframe {
+    max-width: 100%;
+}
+
+body.blog-body img {
+    height: auto;
+}
+
+/* جلوگیری از بیرون‌زدگی متن‌های طولانی */
+body.blog-body h1,
+body.blog-body h2,
+body.blog-body h3,
+body.blog-body h4,
+body.blog-body h5,
+body.blog-body p,
+body.blog-body a,
+body.blog-body span {
+    overflow-wrap: anywhere;
+}
+
+/* فاصله و اندازه هدر */
+body.blog-body .site-header {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    margin-right: auto !important;
+    margin-left: auto !important;
+    gap: 14px 18px;
+}
+
+body.blog-body .site-brand-wrap,
+body.blog-body .site-nav,
+body.blog-body .site-header-search {
+    min-width: 0;
+    max-width: 100%;
+}
+
+body.blog-body .site-nav {
+    flex-wrap: wrap;
+}
+
+body.blog-body .site-nav .site-nav-link {
+    white-space: normal;
+}
+
+body.blog-body .search-input-wrapper {
+    min-width: 0;
+    max-width: 100%;
+}
+
+body.blog-body .search-input-wrapper .form-control {
+    min-width: 0;
+    width: 100%;
+}
+
+/* کارت‌های مطالب */
+body.blog-body .card {
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
+    overflow: hidden;
+    margin-bottom: 0;
+}
+
+body.blog-body .card-body {
+    min-width: 0;
+    padding: 20px;
+}
+
+body.blog-body .card-title,
+body.blog-body .card-text {
+    max-width: 100%;
+    overflow-wrap: anywhere;
+}
+
+/* تصاویر داخل کارت‌ها */
+body.blog-body .card-img-top {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    object-fit: cover;
+}
+
+/* سایدبار */
+body.blog-body .blog-sidebar {
+    min-width: 0;
+    max-width: 100%;
+}
+
+body.blog-body .blog-sidebar .card {
+    width: 100%;
+    margin-bottom: 22px;
+}
+
+body.blog-body .blog-sidebar .list-group {
+    min-width: 0;
+    max-width: 100%;
+}
+
+body.blog-body .blog-sidebar .list-group-item {
+    min-width: 0;
+    overflow-wrap: anywhere;
+}
+
+/* فاصله استاندارد بین ستون مقالات و سایدبار */
+body.blog-body .row {
+    --bs-gutter-x: 24px;
+    --bs-gutter-y: 24px;
+}
+
+/* جدول‌ها در صورت وجود */
+body.blog-body .table-responsive {
+    max-width: 100%;
+    overflow-x: auto;
+}
+
+/* موبایل و تبلت */
+@media (max-width: 991.98px) {
+    body.blog-body > .container {
+        padding-right: 20px !important;
+        padding-left: 20px !important;
+    }
+
+    body.blog-body .row {
+        --bs-gutter-x: 18px;
+        --bs-gutter-y: 20px;
+    }
+
+    body.blog-body .site-header {
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) !important;
+    }
+}
+
+/* موبایل */
+@media (max-width: 767.98px) {
+    body.blog-body > .container {
+        padding-right: 14px !important;
+        padding-left: 14px !important;
+        padding-top: 16px !important;
+    }
+
+    body.blog-body .row {
+        --bs-gutter-x: 14px;
+        --bs-gutter-y: 18px;
+    }
+
+    body.blog-body .card-body {
+        padding: 16px;
+    }
+
+    body.blog-body .site-header {
+        padding: 16px !important;
+    }
+
+    body.blog-body .site-header-search {
+        width: 100%;
+    }
+
+    body.blog-body .site-nav {
+        justify-content: center;
+    }
+
+    body.blog-body .blog-sidebar .card {
+        margin-bottom: 16px;
+    }
+}
+
+/* موبایل‌های کوچک */
+@media (max-width: 420px) {
+    body.blog-body > .container {
+        padding-right: 10px !important;
+        padding-left: 10px !important;
+    }
+
+    body.blog-body .site-header {
+        padding: 13px !important;
+    }
+
+    body.blog-body .card-body {
+        padding: 13px;
+    }
+
+    body.blog-body .search-input-wrapper {
+        flex-wrap: wrap;
+    }
+
+    body.blog-body .search-input-wrapper .form-control {
+        flex: 1 1 100%;
+    }
+
+    body.blog-body .search-input-wrapper .btn-search {
+        width: 100%;
+    }
+}
+.blog-body .carousel-caption a,
+.blog-body .carousel-caption a:hover,
+.blog-body .carousel-caption a:focus {
+    text-decoration: none !important;
 }

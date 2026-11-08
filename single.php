@@ -6,66 +6,93 @@ if (isset($_GET['post'])) {
     $post = $db->prepare('SELECT * FROM posts WHERE id = :id');
     $post->execute(['id' => $postId]);
     $post = $post->fetch();
-
-
 }
-
 
 ?>
 
-<main>
+<main class="single-post-page">
+
     <!-- Content -->
-    <section class="mt-4">
-        <div class="row">
+    <section class="single-content-section mt-4">
+
+        <div class="row g-4">
+
             <!-- Posts & Comments Content -->
-            <?php if(empty($post)):  ?>
+            <?php if(empty($post)): ?>
+
             <div class="col-lg-8">
-                <div class="alert alert-danger">"مقاله ای یافت نشد..."</div>
+                <div class="alert alert-danger single-empty-message">
+                    <i class="bi bi-exclamation-circle me-2"></i>
+                    مقاله ای یافت نشد...
+                </div>
             </div>
+
             <?php else: ?>
+
             <div class="col-lg-8">
+
                 <div class="row justify-content-center">
+
                     <?php
-                        $categoryId = $post['category_id'];
+                            $categoryId = $post['category_id'];
                 $postCategory = $db-> query("SELECT * FROM categories WHERE id = $categoryId") ->fetch();
                 ?>
+
                     <!-- Post Section -->
-                    <div class="col">
-                        <div class="card">
-                            <img src="./uploads/posts/<?= $post['image'] ?>"
-                                class="card-img-top" alt="post-image" />
-                            <div class="card-body">
-                                <div class="d-flex justify-content-between">
-                                    <h5 class="card-title fw-bold">
-                                        <?= $post['title']; ?>
-                                    </h5>
-                                    <div>
-                                        <span
-                                            class="badge text-bg-secondary"><?= $postCategory['title'] ?></span>
-                                    </div>
-                                </div>
-                                <p class="card-text text-secondary text-justify pt-3">
-                                    <?= ($post['body'])?>
-                                </p>
-                                <div>
-                                    <p class="fs-6 mt-5 mb-0">
-                                        <?= $post['author'] ?>
-                                    </p>
-                                </div>
+                    <div class="col-12">
+
+                        <article class="card article-card single-article-card">
+
+                            <div class="single-article-image-wrapper">
+                                <img src="./uploads/posts/<?= $post['image'] ?>"
+                                    class="card-img-top single-article-image"
+                                    alt="<?= $post['title']; ?>" />
                             </div>
-                        </div>
+
+                            <div class="card-body single-article-body">
+
+                                <div class="single-article-meta">
+                                    <span class="single-article-category">
+                                        <i class="bi bi-grid"></i>
+                                        <?= $postCategory['title'] ?>
+                                    </span>
+                                </div>
+
+                                <h1 class="card-title fw-bold single-article-title">
+                                    <?= $post['title']; ?>
+                                </h1>
+
+                                <div class="single-article-divider"></div>
+
+                                <div class="card-text single-article-text">
+                                    <?= ($post['body'])?>
+                                </div>
+
+                                <div class="single-article-author">
+                                    <i class="bi bi-person-circle"></i>
+                                    <span>نویسنده:</span>
+                                    <strong><?= $post['author'] ?></strong>
+                                </div>
+
+                            </div>
+
+                        </article>
+
                     </div>
 
-                    <hr class="mt-4" />
+                    <hr class="mt-4 single-section-divider" />
 
                     <!-- Comment Section -->
-                    <div class="col">
+                    <div class="col-12">
+
                         <?php
                         $invalidInputName = '';
                 $invalidInputComment = '';
                 $message = '';
+
                 if(isset($_POST['postComment'])) {
                 }
+
                 if(empty(trim($_POST['name']))) {
                     $invalidInputName = 'فیلد نام الزامیست';
                 } elseif(empty(trim($_POST['comment']))) {
@@ -81,83 +108,142 @@ if (isset($_GET['post'])) {
                 }
                 ?>
 
-
-
                         <!-- Comment Form -->
-                        <div class="card">
+                        <div class="card comment-form-card">
+
                             <div class="card-body">
-                                <p class="fw-bold fs-5">
-                                    ارسال کامنت
+
+                                <div class="sidebar-section-title comment-section-title">
+                                    <i class="bi bi-chat-square-text"></i>
+                                    <p class="fw-bold fs-5 mb-0">
+                                        ارسال دیدگاه
+                                    </p>
+                                </div>
+
+                                <p class="comment-form-description">
+                                    نظر خود را درباره این مقاله با ما به اشتراک بگذارید.
                                 </p>
 
                                 <form method="POST">
-                                    <div class="text-success">
+
+                                    <div class="text-success comment-success-message">
                                         <?= $message ?>
                                     </div>
+
                                     <div class="mb-3">
                                         <label class="form-label">نام</label>
-                                        <input type="text" name="name" class="form-control" />
-                                        <div class=" form-text text-danger">
+
+                                        <input type="text" name="name" class="form-control"
+                                            placeholder="نام خود را وارد کنید" />
+
+                                        <div class="form-text text-danger">
                                             <?= $invalidInputName ?>
                                         </div>
                                     </div>
+
                                     <div class="mb-3">
-                                        <label class="form-label">متن کامنت</label>
-                                        <textarea class="form-control" name="comment" rows="3"></textarea>
-                                        <div class=" form-text text-danger">
+                                        <label class="form-label">متن دیدگاه</label>
+
+                                        <textarea class="form-control" name="comment" rows="4"
+                                            placeholder="دیدگاه خود را بنویسید..."></textarea>
+
+                                        <div class="form-text text-danger">
                                             <?= $invalidInputComment ?>
                                         </div>
                                     </div>
-                                    <button type="submit" name="postComment" class="btn btn-dark">
-                                        ارسال
+
+                                    <button type="submit" name="postComment" class="btn btn-dark comment-submit-btn">
+
+                                        <i class="bi bi-send me-1"></i>
+                                        ارسال دیدگاه
+
                                     </button>
+
                                 </form>
+
                             </div>
+
                         </div>
 
-                        <hr class="mt-4" />
+                        <hr class="mt-4 single-section-divider" />
+
                         <!-- Comment Content -->
                         <?php
-                $postId = $post['id'];
+                    $postId = $post['id'];
                 $comments = $db ->prepare("SELECT * FROM comments WHERE post_id = :id AND status = '1'");
                 $comments->execute(['id' => $postId ]);
                 ?>
 
-                        <p class="fw-bold fs-6">تعداد کامنت :
-                            <?= $comments->rowCount() ?>
-                        </p>
-                        <?php if($comments->rowCount() > 0): ?>
-                        <?php foreach($comments as $comment): ?>
-                        <div class="card bg-light-subtle mb-3">
-                            <div class="card-body">
-                                <div class="d-flex align-items-center">
-                                    <img src="./assets/images/profile.png" width="45" height="45" alt="user-profle" />
+                        <div class="comments-list-section">
 
-                                    <h5 class="card-title me-2 mb-0">
-                                        <?= $comment['name'] ?>
-                                    </h5>
-                                </div>
+                            <div class="comments-list-heading">
+                                <i class="bi bi-chat-dots"></i>
 
-                                <p class="card-text pt-3 pr-3">
-                                    <?= $comment['comment'] ?>
+                                <p class="fw-bold fs-6 mb-0">
+                                    دیدگاه‌ها
+                                    <span class="comments-count">
+                                        <?= $comments->rowCount() ?>
+                                    </span>
                                 </p>
                             </div>
+
+                            <?php if($comments->rowCount() > 0): ?>
+
+                            <?php foreach($comments as $comment): ?>
+
+                            <div class="card comment-card mb-3">
+
+                                <div class="card-body">
+
+                                    <div class="d-flex align-items-center comment-user-info">
+
+                                        <img src="./assets/images/profile.png" width="45" height="45" alt="user-profile"
+                                            class="comment-user-avatar" />
+
+                                        <h5 class="card-title me-2 mb-0 comment-user-name">
+                                            <?= $comment['name'] ?>
+                                        </h5>
+
+                                    </div>
+
+                                    <p class="card-text comment-text pt-3 pr-3">
+                                        <?= $comment['comment'] ?>
+                                    </p>
+
+                                </div>
+
+                            </div>
+
+                            <?php endforeach ?>
+
+                            <?php else: ?>
+
+                            <div class="alert alert-danger comments-empty-message" role="alert">
+                                <i class="bi bi-chat-square me-2"></i>
+                                نظری برای این مقاله ثبت نشده است...
+                            </div>
+
+                            <?php endif ?>
+
                         </div>
-                        <?php endforeach ?>
-                        <?php else: ?>
-                        <div class="alert alert-danger" role="alert">"نظری برای این مقاله ثبت نشده است..."</div>
-                        <?php endif ?>
 
                     </div>
-                </div>
-            </div>
-            <?php endif  ?>
 
+                </div>
+
+            </div>
+
+            <?php endif ?>
+
+            <!-- Sidebar -->
             <?php
-            include "./include/layout/sidbar.php";
+                include "./include/layout/sidbar.php";
 ?>
+
         </div>
+
     </section>
+
 </main>
 
 <!-- Footer -->

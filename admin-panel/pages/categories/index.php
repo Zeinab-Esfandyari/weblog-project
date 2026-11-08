@@ -14,64 +14,85 @@ if(isset($_GET['action']) && isset($_GET['id'])) {
 }
 ?>
 
-<div class="container-fluid">
-    <div class="row">
-        <!-- Sidebar Section -->
+<div class="admin-dashboard">
+    <div class="admin-dashboard-layout">
         <?php
             include "../../include/layout/sidbar.php";
 ?>
 
-        <!-- Main Section -->
-        <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
-            <div
-                class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-                <h1 class="fs-3 fw-bold">دسته بندی ها</h1>
+        <main class="admin-dashboard-main">
+            <div class="admin-page-header">
+                <div>
+                    <span class="admin-page-eyebrow">مدیریت محتوا</span>
+                    <h1 class="admin-page-title">دسته‌بندی‌ها</h1>
+                    <p class="admin-page-description">
+                        مدیریت و سازمان‌دهی دسته‌بندی‌های وبلاگ
+                    </p>
+                </div>
 
-                <div class="btn-toolbar mb-2 mb-md-0">
-                    <a href="./create.php" class="btn btn-sm btn-dark">
-                        ایجاد دسته بندی
+                <div class="admin-page-toolbar">
+                    <a href="./create.php" class="admin-primary-btn">
+                        <span>+</span>
+                        ایجاد دسته‌بندی
                     </a>
                 </div>
             </div>
 
-            <!-- Categories -->
-            <div class="mt-4">
-                <?php if($categories->rowCount() > 0):?>
-                <div class="table-responsive small">
-                    <table class="table table-hover align-middle">
-                        <thead>
-                            <tr>
-                                <th>id</th>
-                                <th>عنوان</th>
-                                <th>عملیات</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php foreach($categories as $category):?>
-                            <tr>
-                                <th><?= $category['id'] ?>
-                                </th>
-                                <td><?= $category['title'] ?>
-                                </td>
-                                <td>
-                                    <a href="./edit.php?id=<?= $category['id'] ?> "
-                                        class="btn btn-sm btn-outline-dark">ویرایش</a>
-                                    <a href="index.php?action=delete&id=<?= $category['id'] ?>"
-                                        class="btn btn-sm btn-outline-danger">حذف</a>
-                                </td>
-                            </tr>
-                            <?php endforeach ?>
-                        </tbody>
-                    </table>
-                </div>
-                <?php else: ?>
-                <div class="col">
-                    <div class="alert alert-danger">
-                        دسته بندی ای یافت نشد...
+            <section class="admin-dashboard-section">
+                <div class="admin-section-header">
+                    <div>
+                        <span class="admin-section-eyebrow">محتوا</span>
+                        <h2 class="admin-section-title">فهرست دسته‌بندی‌ها</h2>
                     </div>
+                    <span class="admin-section-icon">▤</span>
                 </div>
-                <?php endif ?>
-            </div>
+
+                <div class="admin-table-card">
+                    <?php if($categories->rowCount() > 0):?>
+                    <div class="admin-table-responsive">
+                        <table class="admin-data-table">
+                            <thead>
+                                <tr>
+                                    <th>شناسه</th>
+                                    <th>عنوان دسته‌بندی</th>
+                                    <th>عملیات</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php foreach($categories as $category):?>
+                                <tr>
+                                    <th><?= $category['id'] ?>
+                                    </th>
+                                    <td>
+                                        <span class="admin-table-primary-text">
+                                            <?= $category['title'] ?>
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <div class="admin-table-actions">
+                                            <a href="./edit.php?id=<?= $category['id'] ?> "
+                                                class="admin-action-btn admin-edit-btn">
+                                                ویرایش
+                                            </a>
+                                            <a href="index.php?action=delete&id=<?= $category['id'] ?>"
+                                                class="admin-action-btn admin-delete-btn">
+                                                حذف
+                                            </a>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <?php endforeach ?>
+                            </tbody>
+                        </table>
+                    </div>
+                    <?php else: ?>
+                    <div class="admin-empty-message">
+                        <span class="admin-empty-icon">▤</span>
+                        <p>دسته‌بندی‌ای یافت نشد...</p>
+                    </div>
+                    <?php endif ?>
+                </div>
+            </section>
         </main>
     </div>
 </div>
